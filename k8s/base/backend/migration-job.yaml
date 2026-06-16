@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prisma-migration
+
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: prisma-migration
+          image: IMAGE_TAG_PLACEHOLDER
+          command: ["npx", "prisma", "migrate", "deploy"]
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: devcard-secret
+                  key: database-url

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+
+spec:
+  serviceName: "postgres-svc"
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name:postgres
+        image: postgres:16-alpine
+        env:
+        - name: POSTGRES_DB
+          value: devcard
+        volumeMounts:
+          - name: postgres-data
+            mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

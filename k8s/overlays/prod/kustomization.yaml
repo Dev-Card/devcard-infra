@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: prod
+resources:
+  - ../../base/backend/deployment.yaml
+  - ../../base/backend/service.yaml
+  - ../../base/backend/migration-job.yaml
+  - ../../base/backend/hpa.yaml
+  - ../../cert-manager/clusterissuer.yaml
+  - ../../ingress.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 2
+    target:
+      kind: Deployment
+      name: backend
+
+images:
+  - name: IMAGE_TAG_PLACEHOLDER
+    newName: asia-south1=docker.pkg.dev/devcard-prod/devcard/backend
+    newTag: GIT_SHA_PLACEHOLDER
+
