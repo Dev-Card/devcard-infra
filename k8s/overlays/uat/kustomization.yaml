@@ -3,29 +3,29 @@ kind: Kustomization
 namespace: uat
 
 resources:
-  - ../../base
+- ../../base
 
-patches:
-  - patch: |-
-      - op: replace
-        path: /spec/replicas
-        value: 1
-    target:
-      kind: Deployment
-      name: backend
   
-  - patch: |-
-      - op: replace
-        path: /spec/rules/0/host
-        value: api.uat.devcard.prashantkhatri.com
-      - op: replace
-        path: /spec/tls/0/hosts/0
-        value: api.uat.devcard.prashantkhatri.com
-    target:
-      kind: Ingress
-      name: backend-ingress
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 1
+  target:
+    kind: Deployment
+    name: backend
+- patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: api.uat.devcard.prashantkhatri.com
+    - op: replace
+      path: /spec/tls/0/hosts/0
+      value: api.uat.devcard.prashantkhatri.com
+  target:
+    kind: Ingress
+    name: backend-ingress
 
 images:
-  - name: IMAGE_TAG_PLACEHOLDER
-    newName: asia-south1-docker.pkg.dev/devcard-prod/devcard/backend
-    newTag: GIT_SHA_PLACEHOLDER
+- name: IMAGE_TAG_PLACEHOLDER
+  newName: asia-south1-docker.pkg.dev/devcard-prod/devcard/backend
+  newTag: ba56e95
