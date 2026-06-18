@@ -5,13 +5,37 @@ metadata:
 
 spec: 
   replicas: 1
+  selector:
+    matchLabels:
+      app: backend
   template:
+    metadata:
+      labels:
+        app: backend
     spec:
       containers:
         - name: backend
           image: IMAGE_TAG_PLACEHOLDER
           ports:
             - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: devcard-secret
+                  key: database-url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: devcard-secret
+                  key: jwt-secret
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: devcard-secret
+                  key: encryption-key
+            - name: REDIS_URL
+              value: "redis://redis.uat.svc.cluster.local:6379"
           resources:
             limits:
               memory: "512Mi"

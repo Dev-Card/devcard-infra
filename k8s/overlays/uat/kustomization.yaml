@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: prod
+namespace: uat
 
 resources:
   - ../../base
@@ -9,7 +9,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/replicas
-        value: 2
+        value: 1
     target:
       kind: Deployment
       name: backend
@@ -17,10 +17,10 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: api.devcard.prashantkhatri.com
+        value: api.uat.devcard.prashantkhatri.com
       - op: replace
         path: /spec/tls/0/hosts/0
-        value: api.devcard.prashantkhatri.com
+        value: api.uat.devcard.prashantkhatri.com
     target:
       kind: Ingress
       name: backend-ingress
