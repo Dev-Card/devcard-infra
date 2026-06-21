@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - backend/deployment.yaml
   - backend/service.yaml
-  - backend/migration-job.yaml
   - backend/hpa.yaml
   - postgres/statefulset.yaml
   - postgres/service.yaml
