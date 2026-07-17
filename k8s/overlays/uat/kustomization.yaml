@@ -28,4 +28,4 @@ patches:
 images:
 - name: IMAGE_TAG_PLACEHOLDER
   newName: asia-south1-docker.pkg.dev/devcard-prod/devcard/backend
-  newTag: 964589b
+  newTag: 9637c66
